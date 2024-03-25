@@ -13,6 +13,7 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
     "typst",
+    "python",
   },
   indent = {
     enable = true,
@@ -44,6 +45,9 @@ M.mason = {
 
     -- typst
     "typst-lsp",
+
+    -- python
+    "pyright-langserver",
   },
 }
 
