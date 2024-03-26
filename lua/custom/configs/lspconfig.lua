@@ -13,5 +13,14 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+lspconfig.clangd.setup{
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--suggest-missing-includes",
+        "--compile-commands-dir=/compile_commands.json"
+    },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+}
 -- 
 -- lspconfig.pyright.setup { blabla}

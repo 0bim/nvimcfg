@@ -92,22 +92,28 @@ local plugins = {
       "hrsh7th/nvim-cmp",
       config = function()
           local cmp = require("cmp")
+          local luasnip = require("luasnip")
           local has_words_before = function()
             if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
           end
           cmp.setup({
+            snippet = {
+              expand = function(args)
+                  require("luasnip").lsp_expand(args.body)
+              end,
+            },
             mapping = {
-              ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                if cmp.visible() and has_words_before() then
-                  cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                else
-                  fallback()
-                end
-              end), 
-              ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-              ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+              --["<Tab>"] = vim.schedule_wrap(function(fallback)
+                --if cmp.visible() and has_words_before() then
+                  --cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                --else
+                  --fallback()
+                --end
+              --end), 
+              ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+              ["<C-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
               ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
               ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
               ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
@@ -119,7 +125,7 @@ local plugins = {
               },
               -- Accept currently selected item. If none selected, `select` first item.
               -- Set `select` to `false` to only confirm explicitly selected items.
-              ["<CR>"] = cmp.mapping.confirm { select = true },
+              ["<CR>"] = cmp.mapping.confirm { select = false },
             },
             sources = {
               { name = "copilot" },
