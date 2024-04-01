@@ -89,87 +89,21 @@ local plugins = {
     end
   },
   {
-      "hrsh7th/nvim-cmp",
+      "zbirenbaum/copilot.lua",
+      event = "VimEnter",
       config = function()
-          local cmp = require("cmp")
-          local luasnip = require("luasnip")
-          local has_words_before = function()
-            if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-          end
-          cmp.setup({
-            snippet = {
-              expand = function(args)
-                  require("luasnip").lsp_expand(args.body)
-              end,
-            },
-            mapping = {
-              --["<Tab>"] = vim.schedule_wrap(function(fallback)
-                --if cmp.visible() and has_words_before() then
-                  --cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                --else
-                  --fallback()
-                --end
-              --end), 
-              ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-              ["<C-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-              ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-              ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-              ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-              ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-              ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-              ["<C-e>"] = cmp.mapping {
-                i = cmp.mapping.abort(),
-                c = cmp.mapping.close(),
-              },
-              -- Accept currently selected item. If none selected, `select` first item.
-              -- Set `select` to `false` to only confirm explicitly selected items.
-              ["<CR>"] = cmp.mapping.confirm { select = false },
-            },
-            sources = {
-              { name = "copilot" },
-              { name = 'nvim_lsp' },
-              { name = 'luasnip' },
-            },
-            sorting = {
-              priority_weight = 2,
-              comparators = {
-                require("copilot_cmp.comparators").prioritize,
-
-                -- Below is the default comparitor list and order for nvim-cmp
-                cmp.config.compare.offset,
-                -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-                cmp.config.compare.exact,
-                cmp.config.compare.score,
-                cmp.config.compare.recently_used,
-                cmp.config.compare.locality,
-                cmp.config.compare.kind,
-                cmp.config.compare.sort_text,
-                cmp.config.compare.length,
-                cmp.config.compare.order,
-              },
-            },
+          require("copilot").setup({
+              suggestion = { enabled = false },
+              panel = { enabled = false },
           })
-        end
-    },
-    {
-        "zbirenbaum/copilot.lua",
-        event = "VimEnter",
-        config = function()
-            require("copilot").setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-            })
-        end
-    },
-    {
-        "zbirenbaum/copilot-cmp",
-        config = function ()
-          require("copilot_cmp").setup()
-        end
-    },
-
+      end
+  },
+  {
+      "zbirenbaum/copilot-cmp",
+      config = function ()
+        require("copilot_cmp").setup()
+      end
+  },
 
   --To make a plugin not be loaded
   -- {
