@@ -1,21 +1,20 @@
-require "core"
+vim.g.mapleader = " "
+vim.o.number = true             -- Enable line numbers
+vim.o.relativenumber = true     -- Enable relative line numbers
+vim.o.tabstop = 4               -- Number of spaces a tab represents
+vim.o.shiftwidth = 4            -- Number of spaces for each indentation
+vim.o.expandtab = true          -- Convert tabs to spaces
+vim.o.smartindent = true        -- Automatically indent new lines
+vim.o.wrap = false              -- Disable line wrapping
+vim.o.cursorline = true         -- Highlight the current line
+vim.o.clipboard = "unnamedplus" -- allow vim to use system clipboard
 
-local custom_init_path = vim.api.nvim_get_runtime_file("lua/custom/init.lua", false)[1]
+-- stop deselection after formatting text
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
 
-if custom_init_path then
-  dofile(custom_init_path)
-end
+-- lazy bootstrap
+require "lazy-bootstrap"
 
-require("core.utils").load_mappings()
-
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
--- bootstrap lazy.nvim!
-if not vim.loop.fs_stat(lazypath) then
-  require("core.bootstrap").gen_chadrc_template()
-  require("core.bootstrap").lazy(lazypath)
-end
-
-dofile(vim.g.base46_cache .. "defaults")
-vim.opt.rtp:prepend(lazypath)
-require "plugins"
+-- set color schme
+vim.cmd("colorscheme dark_flat")
