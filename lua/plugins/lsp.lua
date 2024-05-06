@@ -32,14 +32,18 @@ return {
                 "rust_analyzer",
                 "pyright",
                 "typst_lsp",
+                "clangd",
             },
             handlers = {
                 function(server_name)
-                    require("lspconfig")[server_name].setup({})
+                    if server_name ~= "rust_analyzer" then
+                        require("lspconfig")[server_name].setup({})
+                    end
                 end
             }
         })
 
+        local opts = { noremap = true, silent = true }
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(args)
@@ -47,7 +51,15 @@ return {
                 if client.server_capabilities.inlayHintProvider then
                     vim.lsp.inlay_hint.enable(true, nil)
                 end
-                -- whatever other lsp config you want
+
+                -- mappings
+                vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+                vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+                -- get filetype
+                local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+                if filetype ~= "rust" then
+                    vim.api.nvim_buf_set_keymap(0, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+                end
             end
         })
     end

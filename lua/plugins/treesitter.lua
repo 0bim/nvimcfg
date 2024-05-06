@@ -4,6 +4,7 @@ return {
         ensure_installed = {
             "bash",
             "html",
+            "java",
             "javascript",
             "json",
             "lua",
@@ -18,9 +19,11 @@ return {
             "yaml",
             "rust",
             "typst",
+            "C",
+            "C++",
         },
         highlight = {
-          enable = true,
+            enable = true,
         },
         indent = {
             enable = true,

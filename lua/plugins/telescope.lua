@@ -36,7 +36,7 @@ return {
         -- Mapping <leader>f to open find_files
         -- set leader f w to find words
         map("n", "<leader>fw", "<cmd>Telescope current_buffer_fuzzy_find<CR>", {})
-        map("n", "<leader>f", "<cmd>Telescope find_files<CR>", {})
+        map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", {})
         map("n", "<leader>g", "<cmd>Telescope live_grep<CR>", {})
         map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {})
         map("n", "<leader>h", "<cmd>Telescope help_tags<CR>", {})
