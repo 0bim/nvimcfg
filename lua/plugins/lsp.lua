@@ -33,6 +33,7 @@ return {
                 "pyright",
                 "typst_lsp",
                 "clangd",
+                "tsserver",
             },
             handlers = {
                 function(server_name)

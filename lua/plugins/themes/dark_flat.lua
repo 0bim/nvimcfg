@@ -33,6 +33,9 @@ return {
                 Number = { fg = colors.green },
                 Float = { fg = colors.green },
                 constant = { fg = colors.green },
+
+                -- treesitter
+                ["@parameter"] = { fg = colors.fuchsia },
             }
         end,
         italics = false,
