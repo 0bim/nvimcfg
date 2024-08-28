@@ -36,6 +36,7 @@ return {
                 "tsserver",
                 "jsonls",
                 "jdtls",
+                "pbls",
             },
             handlers = {
                 function(server_name)

@@ -42,6 +42,7 @@ return {
         map("n", "<leader>b", "<cmd>Telescope buffers<CR>", {})
         map("n", "<leader>h", "<cmd>Telescope help_tags<CR>", {})
         map("n", "<leader>fb", "<cmd>Telescope file_browser<CR>", {})
+        map("n", "<leader>fB", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", {})
         -- make telescope start from first file and go down
         -- load extensions
         telescope.load_extension("fzy_native")

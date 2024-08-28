@@ -21,6 +21,7 @@ return {
             "typst",
             "C",
             "C++",
+            "proto",
         },
         highlight = {
             enable = true,

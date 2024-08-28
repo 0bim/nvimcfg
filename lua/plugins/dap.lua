@@ -123,12 +123,19 @@ return {
             })
         end
 
+        local function get_lldb_path()
+            local handle = io.popen('where codelldb.exe')
+            local result = handle:read("*a")
+            handle:close()
+            return result:gsub("%s+", "") -- trim whitespace
+        end
+
         local mason_nvim_dap = require("mason-nvim-dap")
         local dap = require("dap")
         mason_nvim_dap.setup({
             ensure_installed = {
-                "python",
-                "codelldb",
+                "debugpy",
+                "codelldb"
             },
             automatic_installation = true,
             handlers = {
@@ -180,13 +187,22 @@ return {
                             cwd = "${workspaceFolder}",
                         },
                     }
+
+                    config.adapters = {
+                        type = 'server',
+                        port = "${port}",
+                        executable = {
+                            command = get_lldb_path(),
+                            args = {"--port", "${port}"},
+                            detached = false,
+                        }
+                    }
+
                     mason_nvim_dap.default_setup(config)
                     dap.configurations.rust = config.configurations;
                 end,
             },
         })
-
-
 
         local dapui = require("dapui")
 
