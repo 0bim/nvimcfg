@@ -22,6 +22,7 @@ return {
             "C",
             "C++",
             "proto",
+            "matlab",
         },
         highlight = {
             enable = true,
