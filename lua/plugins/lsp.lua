@@ -9,8 +9,8 @@ return {
         "hrsh7th/cmp-path",
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
         "L3MON4D3/LuaSnip",
+        "kevinhwang91/nvim-ufo",
         "rafamadriz/friendly-snippets",
         { "lukas-reineke/lsp-format.nvim", config = true },
     },
@@ -36,6 +36,7 @@ return {
                 "tsserver",
                 "jsonls",
                 "jdtls",
+                "matlab_ls"
             },
             handlers = {
                 function(server_name)

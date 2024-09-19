@@ -4,14 +4,10 @@ return {
         ensure_installed = {
             "bash",
             "html",
-            "java",
             "javascript",
             "json",
             "lua",
-            "markdown",
-            "markdown_inline",
             "python",
-            "query",
             "regex",
             "tsx",
             "typescript",
@@ -21,7 +17,6 @@ return {
             "typst",
             "C",
             "C++",
-            "proto",
             "matlab",
         },
         highlight = {
