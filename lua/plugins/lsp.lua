@@ -15,8 +15,9 @@ return {
         { "lukas-reineke/lsp-format.nvim", config = true },
     },
     config = function()
+        require("java").setup()
+
         local lsp = require("lsp-zero")
-        lsp.preset("recommended")
         lsp.on_attach(function(client, bufnr)
             require("lsp-format").on_attach(client, bufnr)
         end)
@@ -31,12 +32,9 @@ return {
             ensure_installed = {
                 "rust_analyzer",
                 "pyright",
-                "typst_lsp",
                 "clangd",
-                "tsserver",
-                "jsonls",
                 "jdtls",
-                "matlab_ls"
+                "jsonls",
             },
             handlers = {
                 function(server_name)
