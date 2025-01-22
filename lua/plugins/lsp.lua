@@ -35,6 +35,8 @@ return {
                 "clangd",
                 "jdtls",
                 "jsonls",
+                "tinymist",
+                "typst_lsp",
             },
             handlers = {
                 function(server_name)
