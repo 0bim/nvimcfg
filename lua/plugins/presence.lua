@@ -1,3 +1,4 @@
 return {
-    "andweeb/presence.nvim",
+  -- lua/processfiles/init.lua
+  "andweeb/presence.nvim",
 }

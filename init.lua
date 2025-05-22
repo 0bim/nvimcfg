@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+-- lua/processfiles/init.lua
 vim.o.number = true             -- Enable line numbers
 vim.o.relativenumber = true     -- Enable relative line numbers
 vim.o.tabstop = 4               -- Number of spaces a tab represents
@@ -18,3 +19,5 @@ require "lazy-bootstrap"
 
 -- set color schme
 vim.cmd("colorscheme dark_flat")
+
+-- vim.cmd("filetype plugin indent on")

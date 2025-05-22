@@ -1,3 +1,4 @@
 return {
-    "sindrets/diffview.nvim",
+  -- lua/processfiles/init.lua
+  "sindrets/diffview.nvim",
 }

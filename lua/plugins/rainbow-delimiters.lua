@@ -1,3 +1,4 @@
-return { 
-    "hiphish/rainbow-delimiters.nvim"
+return {
+  -- lua/processfiles/init.lua
+  "hiphish/rainbow-delimiters.nvim"
 }
