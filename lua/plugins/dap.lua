@@ -21,7 +21,6 @@ return {
     "axkirillov/easypick.nvim",
   },
   config = function()
-    -- Function to pick processes
     local function pick_process(callback)
       local opts = require('telescope.themes').get_dropdown {}
       local results = {}
@@ -38,10 +37,10 @@ return {
           entry_maker = function(entry)
             local pid, cmd
             if vim.fn.has('win32') == 1 then
-              -- Improved pattern to handle CSV correctly
+              -- handle CSV correctly
               cmd, pid = entry:match('"(.-)","(.-)",')
             else
-              -- Ensure to skip any non-matching lines (e.g., headers or empty lines)
+              -- skip any non-matching lines (e.g., headers or empty lines)
               cmd, pid = entry:match('^(%d+)%s+(.*)')
             end
             if pid and cmd then
@@ -49,7 +48,7 @@ return {
                 value = cmd,
                 display = cmd .. ' ' .. pid,
                 ordinal = cmd .. ' ' .. pid,
-                pid = tonumber(pid) -- Ensure pid is a number
+                pid = tonumber(pid)
               }
             end
           end

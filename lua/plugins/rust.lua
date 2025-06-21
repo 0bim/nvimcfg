@@ -1,6 +1,5 @@
 return {
-  -- lua/processfiles/init.lua
-  'mrcjkb/rustaceanvim',
+  "mrcjkb/rustaceanvim",
   version = '^4', -- Recommended
   config = function()
     -- Update this path
@@ -24,13 +23,17 @@ return {
     vim.g.rustaceanvim = {
       server = {
         cmd = function()
-          local mason_registry = require('mason-registry')
-          local ra_binary = mason_registry.is_installed('rust-analyzer')
-              -- This may need to be tweaked, depending on the operating system.
-              and mason_registry.get_package('rust-analyzer'):get_install_path() ..
-              "/rust-analyzer"
-              or "rust-analyzer"
-          return { ra_binary } -- You can add args to the list, such as '--log-file'
+          local mason_registry = require("mason-registry")
+
+          if mason_registry.is_installed("rust-analyzer") then
+            local pkg = mason_registry.get_package("rust-analyzer")
+            local path = pkg:get_install_path() .. "/rust-analyzer"
+            if vim.fn.executable(path) == 1 then
+              return { path }
+            end
+          end
+
+          return { "rust-analyzer" }
         end,
         on_attach = function()
           vim.api.nvim_buf_set_keymap(0,
