@@ -28,4 +28,11 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "none" })
 
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = "*.ipynb",
+--   callback = function()
+--     vim.bo.filetype = "python"
+--   end,
+-- })
+
 -- vim.cmd("filetype plugin indent on")

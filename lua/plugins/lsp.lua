@@ -1,5 +1,4 @@
 return {
-  -- lua/processfiles/init.lua
   "VonHeikemen/lsp-zero.nvim",
   dependencies = {
     "neovim/nvim-lspconfig",
@@ -16,39 +15,37 @@ return {
     { "lukas-reineke/lsp-format.nvim", config = true },
   },
   config = function()
-    require("java").setup()
-
     local lsp = require("lsp-zero")
-    lsp.on_attach(function(client, bufnr)
-      require("lsp-format").on_attach(client, bufnr)
-    end)
-    lsp.setup()
-    vim.diagnostic.config { virtual_text = true }
+    local lspconfig = require("lspconfig")
+    local util = require("lspconfig.util")
 
-    local mason = require("mason")
-    mason.setup({})
+    require("mason").setup()
 
-    local mason_lspconfig = require("mason-lspconfig")
-    mason_lspconfig.setup({
+    require("mason-lspconfig").setup({
       ensure_installed = {
         "rust_analyzer",
         "pyright",
-        "clangd",
         "jsonls",
         "tinymist",
         "ts_ls",
         "tailwindcss",
         "lua_ls",
-        "prismals"
+        "prismals",
+        "clangd",
       },
-      handlers = {
-        function(server_name)
-          if server_name ~= "rust_analyzer" then
-            require("lspconfig")[server_name].setup({})
-          end
-        end
-      }
+      -- automatic_installation = true,
+      -- automatic_enable = true,
+      -- In v2.x, `handlers` / `setup_handlers` are removed
+      -- mason-lspconfig will automatically enable installed servers via `vim.lsp.enable()`
     })
+
+
+
+    lsp.on_attach(function(client, bufnr)
+      require("lsp-format").on_attach(client, bufnr)
+    end)
+
+    lsp.setup()
 
     local opts = { noremap = true, silent = true }
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -59,15 +56,14 @@ return {
           vim.lsp.inlay_hint.enable(true, nil)
         end
 
-        -- mappings
         vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
         vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-        -- get filetype
+
         local filetype = vim.api.nvim_buf_get_option(0, "filetype")
         if filetype ~= "rust" then
           vim.api.nvim_buf_set_keymap(0, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
         end
-      end
+      end,
     })
-  end
+  end,
 }

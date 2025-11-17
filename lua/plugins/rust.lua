@@ -27,7 +27,9 @@ return {
 
           if mason_registry.is_installed("rust-analyzer") then
             local pkg = mason_registry.get_package("rust-analyzer")
-            local path = pkg:get_install_path() .. "/rust-analyzer"
+            -- local path = pkg:get_install_path() .. "/rust-analyzer" -- REMOVED
+            local path = vim.fn.exepath("rust-analyzer")
+            -- print("Found rust-analyzer at: " .. path)
             if vim.fn.executable(path) == 1 then
               return { path }
             end
